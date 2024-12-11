@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Preços de Criptomoedas em Tempo Real</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #313030;
+    }
+
+    h1 {
+      color: #ffffff;
+      text-align: center;
+    }
+    
+    .price {
+      font-size: 24px;
+      font-weight: bold;
+      color: #ffffff;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .price2 {
+      font-size: 24px;
+      font-weight: bold;
+      color: #ffffff;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .content img{
+      max-width: 300px;
+      margin-left: 40px;
+    }
+
+    .content{
+      display: flex;
+      justify-content: center;
+    }
+
+    .contentCenter{
+      margin: auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="content">
+    <div class="contentCenter">
+      <h1>Preço Atual do BTC/USDT:</h1>
+      <img src="img/btc.png" alt="BTC img">
+      <div class="price" id="price">Carregando...</div>
+      <div class="price2" id="price2">Carregando...</div>
+    </div>
+  </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+
+        socket.on('priceBTC', function(data) {
+            const priceElement = document.getElementById('price');
+            priceElement.textContent = `${data.symbol}: $${parseFloat(data.price).toFixed(2)}`;
+        });
+        socket.on('priceBTC2', function(data) {
+            const priceElement = document.getElementById('price2');
+            priceElement.textContent = `${data.symbol}: R$${parseFloat(data.price).toFixed(2).replace('.', ',')}`;
+        });
+    </script>
+</body>
+</html>
